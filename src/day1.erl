@@ -14,8 +14,8 @@
 -export([count10/0]).
 -export([handler/1]).
 -export([test_all_cases/0]).
--export([test_cases/1]).
--export([test_case/2]).
+
+-import_all(test_util).
 
 %% 递归统计单词数
 number_of_word(Text)->length(recur_count_word(Text,[],[])).
@@ -38,19 +38,8 @@ count10()->count(10), io:format("~n").
 handler(success)->io:format("~p~n", [success]);
 handler({error, Message})->io:format("error:~p~n", [Message]).
 
-test_case(CaseName, CaseFun)-> io:format("~n=====================~n"),
-  io:format("Test:~s", [CaseName]),
-  io:format("~n"),
-  CaseFun(),
-  io:format("~n=====================~n").
-
-test_cases([])->ok;
-test_cases([{CaseName, CaseFun} | Cases])->
-  test_case(CaseName, CaseFun),
-  test_cases(Cases).
-
 test_all_cases()->
-  test_cases([
+  test_util:test([
     {"number_of_word", fun()->
       io:format("~p~n", [number_of_word("Ha    Ha  Ha , Hello!")])
     end},
