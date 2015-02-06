@@ -1,5 +1,5 @@
 %%%-------------------------------------------------------------------
-%%% @author hao
+%%% @author varvelworld
 %%% @copyright (C) 2014, <COMPANY>
 %%% @doc
 %%%
@@ -7,7 +7,7 @@
 %%% Created : 25. 十二月 2014 14:46
 %%%-------------------------------------------------------------------
 -module(day1).
--author("hao").
+-author("varvelworld").
 
 %% API
 -export([number_of_word/1]).

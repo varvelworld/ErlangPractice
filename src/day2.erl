@@ -1,5 +1,5 @@
 %%%-------------------------------------------------------------------
-%%% @author luzhonghao
+%%% @author varvelworld
 %%% @copyright (C) 2015, <COMPANY>
 %%% @doc
 %%%
@@ -7,7 +7,7 @@
 %%% Created : 29. 一月 2015 下午7:32
 %%%-------------------------------------------------------------------
 -module(day2).
--author("luzhonghao").
+-author("varvelworld").
 
 %% API
 -export([get_value/2]).
@@ -30,8 +30,8 @@ tictactoe(Board)->
    fun
      CheckDealBoard([[x, x, x] | _], _) -> x;
      CheckDealBoard([[o, o, o] | _], _) -> o;
-     CheckDealBoard([], true) -> cat;
-     CheckDealBoard([], false) -> no_winner;
+     CheckDealBoard([], true) -> no_winner;
+     CheckDealBoard([], false) -> cat;
      CheckDealBoard([Hd | Tail], CanWin)
       ->
        %% if 使用的是哨兵，不能在其中调用函数，以免产生副作用
@@ -47,7 +47,8 @@ test_all_cases()->
       fun()->
         io:format("~p~n", [get_value([{a,2}, {b,3}, {c,c}], b)]),
         io:format("~p~n", [get_value([{a,2}, {b,3}, {c,"a"}], c)]),
-        io:format("~p~n", [get_value([{a,2}, {b,3}, {c, []}], d)])
+        io:format("~p~n", [get_value([{a,2}, {b,3}, {c, []}], d)]),
+        io:format("~p~n", [get_value([{erlang, "a functinal language"}, {ruby, "an OO language"}], ruby)])
       end
     },
     {"compute shoping list",
@@ -66,6 +67,11 @@ test_all_cases()->
           [x,o,0],
           [o,x,0],
           [0,0,x]
+        ])]),
+        io:format("~p~n", [tictactoe([
+          [x,o,0],
+          [o,x,x],
+          [o,x,o]
         ])])
       end
     }
