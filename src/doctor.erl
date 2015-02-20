@@ -10,23 +10,24 @@
 -author("Hao").
 
 %% API
--export([loop/0]).
--export([start/0]).
+-export([loop/2]).
+-export([start/2]).
 
-loop() ->
+loop(F, A) ->
   process_flag(trap_exit, true),
   receive
     new ->
       io:format("Creating and monitoring process.~n"),
-      register(translate, spawn_link(fun translate_service:loop/0)),
-      loop();
+      register(A, spawn_link(F)),
+      loop(F, A);
     {'EXIT', From, Reason} ->
-      io:format("The translage service ~p died with reson ~p~n", [From, Reason]),
+      io:format("The process ~p died with reson ~p~n", [From, Reason]),
+      io:format(" Restarting~n."),
       self() ! new,
-      loop()
+      loop(F, A)
   end.
 
-start() ->
-  D = spawn(fun loop/0),
+start(F, A) ->
+  D = spawn(doctor, loop, [F, A]),
   D ! new,
   D.
