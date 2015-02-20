@@ -20,9 +20,9 @@ loop() ->
     {From, "blance"} ->
       From ! "white",
       loop();
-    {From, _} ->
+    {From, W} ->
       From ! "I don't understand",
-      exit({translate_service, die, at, erlang:time()}),
+      exit({W, not_understood, at, erlang:time()}),
       loop()
   end.
 
