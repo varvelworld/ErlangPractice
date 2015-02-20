@@ -11,6 +11,7 @@
 
 %% API
 -export([loop/0]).
+-export([start/0]).
 
 loop() ->
   process_flag(trap_exit, true),
@@ -24,3 +25,8 @@ loop() ->
       self() ! new,
       loop()
   end.
+
+start() ->
+  D = spawn(fun loop/0),
+  D ! new,
+  D.
