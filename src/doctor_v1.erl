@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 16. 二月 2015 18:07
 %%%-------------------------------------------------------------------
--module(doctor).
+-module(doctor_v1).
 -author("Hao").
 
 %% API
@@ -30,7 +30,7 @@ loop(F, A) ->
       loop(F, A);
     die ->
       io:format("I'm died~n"),
-      exit({die, at, time, erlang:time()});
+      0 / 1;
     {'EXIT', From, Reason} ->
       io:format("The process ~p died with reson ~p~n", [From, Reason]),
       io:format(" Restarting~n."),
@@ -39,6 +39,6 @@ loop(F, A) ->
   end.
 
 start(F, A) ->
-  D = spawn(doctor, loop, [F, A]),
+  D = spawn(doctor_v1, loop, [F, A]),
   D ! start,
   D.

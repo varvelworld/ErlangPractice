@@ -10,12 +10,17 @@
 -author("Hao").
 
 %% API
--export([start/0]).
+-export([start_doctor_v1/0]).
+-export([start_translate_service/0]).
 -export([translate/1]).
--import_all(doctor).
+-import_all(doctor_v1).
 -import_all(translate_service).
 
-start() ->
-  doctor:start(fun translate_service:loop/0, translate).
+start_translate_service() ->
+  register(translate, spawn(fun translate_service:loop/0)).
+start_doctor_v1() ->
+  doctor_v1:start(fun translate_service:loop/0, translate).
+
+
 translate(Word) ->
   translate_service:translate(translate, Word).
